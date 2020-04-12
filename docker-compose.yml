@@ -2,9 +2,11 @@ version: "3"
 
 services:
   app:
+    # workaround to be able to mount volume as non-root user https://github.com/moby/moby/issues/2259
+    user: $UID:$GID
     build:
       context: .
-    port:
+    ports:
       - "8000:8000"
     volumes:
       - ./app:/app

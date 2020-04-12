@@ -13,6 +13,10 @@ RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
 
+# workaround to be able to mount volume as non-root user https://github.com/moby/moby/issues/2259
+RUN chown -R $(whoami):$(whoami) /app
+RUN export UID=${UID} && export GID=${GID}
+
 # create user to run app on Docker (for security, in case root user is compromised)
 RUN adduser -D venus_docker
 USER venus_docker
