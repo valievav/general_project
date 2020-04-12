@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.utils.translation import gettext as _  # converting strings to readable
+from django.utils.translation import gettext as _  # for future translations
 from core_app import models
 
 
