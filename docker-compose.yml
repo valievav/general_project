@@ -2,7 +2,7 @@ version: "3"
 
 services:
   app:
-    # workaround to be able to mount volume as non-root user https://github.com/moby/moby/issues/2259
+    # workaround to mount volume as non-root user https://github.com/moby/moby/issues/2259
     user: $UID:$GID
     build:
       context: .
@@ -11,3 +11,19 @@ services:
     volumes:
       - ./app:/app
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=postgres
+      - DB_USER=postgres_user
+      - DB_PASS=supersecret123
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=supersecret123
+

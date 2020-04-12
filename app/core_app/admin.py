@@ -5,6 +5,9 @@ from core_app import models
 
 
 class UserAdmin(BaseUserAdmin):
+    """
+    Update Admin to support custom user model
+    """
 
     ordering = ['id']
     list_display = ['email', 'name']
